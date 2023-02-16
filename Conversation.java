@@ -3,20 +3,21 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The Conversation class holds a chatbot. 
+ */
 class Conversation {
- 
+ /**
+  * Chatbot that responds by mirroring the user input or by choosing a random response.
+  * @param arguments
+  */
   public static void main(String[] arguments) {
     // You will start the conversation here.
-    
-    
-    //choose number of rounds
     int currentRound = 1;
     Scanner userInput = new Scanner(System.in);
     System.out.println("How many rounds (int): ");
     int roundMax = userInput.nextInt();
 
-    //Transcipt
     List<String> transcript = new ArrayList<String>();
     transcript.add("Hi! What's on your mind?"); //Introduction is constant 
     
@@ -34,15 +35,12 @@ class Conversation {
     mirrorVerbs.add("am ");
     mirrorVerbs.add("is ");
 
-    //canned response array
     String[] cannedResponses = new String[]{
       "Uh huh","How interesting","Really?","Hmm...", "Wow"
     };
 
-    
     Scanner userIntro = new Scanner(System.in); 
     System.out.println("Hi! What's on your mind? "); //can intro, take in userresponse
-
 
     for (currentRound = 1; currentRound <= roundMax; currentRound++){
       String userResponse = userIntro.nextLine();
@@ -51,8 +49,9 @@ class Conversation {
       boolean change = false;
       String output = "";
       
-      //checks if response has a pronoun, and replaces it
-              //checks if response has a pronoun, and replaces it **Works**
+      /**
+       * Checks if response has a pronoun, and replaces it if it exists.
+       */
       for (int i = 0; i < mirrorPronouns.size(); i++) {
         String pronoun = mirrorPronouns.get(i);
         pronoun = pronoun.toLowerCase();
@@ -63,7 +62,10 @@ class Conversation {
           break;
         }
       }
-      //checks if response has a possessive pronoun, and replaces it **Works**
+
+      /**
+       * Checks if response has a possessive pronoun, and replaces it if it exists.
+       */
       for (int i = 0; i < mirrorPossessivePrns.size(); i++) {
         String possessivePrn = mirrorPossessivePrns.get(i);
         possessivePrn = possessivePrn.toLowerCase();
@@ -75,7 +77,9 @@ class Conversation {
         }
       }
       
-      //checks if respons has a mirrorable verb, and replaces it **WORKS**
+      /**
+       * Checks if respons has a mirrorable verb, and replaces it **WORKS*
+      */
       for (int i = 0; i < mirrorVerbs.size(); i++) {
         String verb = mirrorVerbs.get(i);
         if (userResponse.contains(verb)) {
@@ -87,12 +91,12 @@ class Conversation {
       }
 
       if (change == true) {
-        //convert lower case to regular sentence capitalization
+        //Convert lower case to regular sentence capitalization
         String str1 = userResponse.substring(0, 1).toUpperCase();  
         String str2 = userResponse.substring(1, userResponse.length()); 
         output = str1.substring(0,1).toUpperCase() + str2.substring(0);
       } else {
-        //choose random response from list 
+        //Choose random response from list 
         int max = 4;
         int min = 0;
         Random rand = new Random();
@@ -100,24 +104,24 @@ class Conversation {
         output = cannedResponses[randomNum];
       }
 
-      //Responds after changing a pronoun
+    
       if (change == true) {
-        //convert lower case to regular sentence capitalization
+        //Convert lower case to regular sentence capitalization
         String str1 = output.substring(0, 1).toUpperCase();  
         String str2 = output.substring(1, output.length()); 
         output = str1.substring(0,1).toUpperCase() + str2.substring(0);
         System.out.println(output + "?");
-        transcript.add(output); //add response to transcript
+        transcript.add(output); 
       } else {
         System.out.println(output);
-        transcript.add(output); //add response to transcript
+        transcript.add(output); 
       }
       
     }
     System.out.println("Goodbye!");
     transcript.add("Goodbye!");
     
-    //print transcript
+    //Prints transcript
     System.out.println("\nTRANSCRIPT");
     for (String line : transcript) {
       System.out.println(line);
